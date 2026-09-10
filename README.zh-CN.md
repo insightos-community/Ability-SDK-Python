@@ -35,6 +35,8 @@ Ability 无法导入 SDK 时，应检查宿主实际使用的解释器 / 环境�
 
 [原始使用笔记](README.reference.md)
 
+[CI 与 Tag 制品发布](docs/ci-release.md)
+
 ## 许可证
 
 Copyright 2026 InsightOS。自有代码采用 [Apache-2.0](LICENSE)；第三方组件与资产请查看 [NOTICE](NOTICE) 和[许可范围](LICENSE_SCOPE.md)。

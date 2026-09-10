@@ -35,6 +35,8 @@ If an Ability cannot import the SDK, inspect the interpreter/environment used by
 
 [Previous usage notes](README.reference.md)
 
+[CI and Tag releases](docs/ci-release.md)
+
 ## License
 
 Copyright 2026 InsightOS. First-party code: [Apache-2.0](LICENSE). See [NOTICE](NOTICE) and [license scope](LICENSE_SCOPE.md) for third-party components and assets.
