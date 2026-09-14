@@ -30,6 +30,9 @@ def _set_parent_death_signal():
     """通过 prctl(PR_SET_PDEATHSIG, SIGTERM) 让内核在父进程（框架）退出时
     自动向本进程发送 SIGTERM。这样即使框架被 SIGKILL，子能力进程也不会成为
     孤儿继续向新框架实例发送心跳，从而破坏单例约束。"""
+    if sys.platform != "linux":
+        # Windows native ability.exe owns the Python child Job Object.
+        return
     try:
         PR_SET_PDEATHSIG = 1
         libc = ctypes.CDLL("libc.so.6", use_errno=True)
