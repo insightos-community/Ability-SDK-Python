@@ -99,3 +99,28 @@ See the [complete installer and repository index](https://github.com/insightos-c
 platform locks and end-to-end validation. Local build commands do not publish a
 Release. Publishing requires repository write access and a new version tag;
 existing release tags/assets should not be replaced.
+
+## Windows x64 native SDK validation
+
+The SDK wheel is platform independent. Windows validation uses CPython 3.13.15,
+Flask 3.1.3, Requests 2.34.2 and the native `ability.exe` from ability-scaffold
+commit `48f7b9f6f01e5657cfba3613952b6578cb1d08d0`.
+
+```powershell
+uv build
+uv venv .output/venv --python 3.13.15
+uv pip install --python .output/venv/Scripts/python.exe (Get-ChildItem dist/*.whl).FullName flask==3.1.3 requests==2.34.2
+.output/venv/Scripts/python.exe tests/native_lifecycle.py C:/path/to/ability.exe
+```
+
+See [.github/workflows/windows.yml](.github/workflows/windows.yml) for the pinned
+MSVC launcher build. The test runs the installed wheel as a real process under a
+Unicode/space-containing directory against a local fake Framework. It checks
+UUID/config forwarding, IPC requests, Standby/Running/Suspend/Terminated
+heartbeats, and IPC cleanup after the native launcher is retired. It does not
+qualify robot motion, hardware, or supervisor hold/stop evidence.
+
+Windows parent-child ownership is provided by the native launcher's Job Object.
+The Linux `prctl` probe is skipped on Windows/macOS. Heartbeat orphan retirement
+still follows the existing three-410 policy; it is not a portable graceful-stop
+protocol and should not be confused with acknowledged Ability termination.

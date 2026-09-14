@@ -44,3 +44,10 @@ Copyright 2026 InsightOS。自有代码采用 [Apache-2.0](LICENSE)；第三方�
 ## 三个平台的构建复现
 
 参见 [glibc、musl 与 macOS 构建说明](README.build.md)：包含已锁定的源码版本、实际脚本入口、工具要求、本地与 CI 指令、产物位置和平台验证范围。
+
+## Windows 原生验证
+
+新增 Windows x64 的安装后 wheel 验证，使用原生 `ability.exe` 启动真实 SDK 进程，
+覆盖中文目录、UUID/JSON 参数、IPC 与四个生命周期心跳状态，以及入口回收后的端口释放。
+复现命令见 [Windows 构建说明](README.build.md#windows-x64-native-sdk-validation)。
+该测试使用本地模拟 Framework，不代表真实机器人运动或整套 installer 已完成验收。
